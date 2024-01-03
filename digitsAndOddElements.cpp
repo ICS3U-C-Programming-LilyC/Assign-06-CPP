@@ -68,7 +68,7 @@ ElementsAtOddPositions(const std::list<int>& listOfElements) {
             // Appending the individual digits to the list.
             // Using the number 1 specifies the length of the
             // new string, and the digit variable specifies the character
-            // to be copied into the new string. 
+            // to be copied into the new string.
             // Then the string is passed as an argument to the std::stoi()
             // function, which converts the string to an integer.
             // Then the integer is added to the end of listOfDigits using
@@ -92,9 +92,10 @@ ElementsAtOddPositions(const std::list<int>& listOfElements) {
         while (true) {
             // Getting user inputs.
             // Using std::getline() function to read the input and store it in
-            // the string variable listAsString. Using std::cin object to read the input
-            // and ignore any leading whitespace characters in the input.
-            // Using std::ws manipulator to skip any remaining whitespace characters in the input.
+            // the string variable listAsString. Using std::cin object to read
+            // the input and ignore any leading whitespace characters
+            // in the input. Using std::ws manipulator to skip any
+            // remaining whitespace characters in the input.
             std::cout <<
             "Please enter a string of integers separated by spaces: ";
             std::getline
@@ -105,18 +106,21 @@ ElementsAtOddPositions(const std::list<int>& listOfElements) {
             // Using try catch to catch any errors.
             try {
                 // Using a stringstream to parse the string into integers.
-                // Using std::istringstream to read input from a string as if it were a stream.
-                // Creating a new object called inputStream with the contents of the string variable listAsString.
-                // This object is then used to extract integers from the input.
+                // Using std::istringstream to read input from a string as
+                // if it were a stream. Creating a new object called
+                // inputStream with the contents of the string variable
+                // listAsString. This object is then used to extract
+                // integers from the input.
                 std::istringstream inputStream(listAsString);
                 std::list<int> listAsInteger;
 
                 int wholeNumberAsInteger = std::stoi(wholeNumberAsString);
 
                 // Parsing the string into integers.
-                // Extract integers from the input stream and store them in the integer variable num.
-                // Using a while loop to extract integers from the input stream and add them to the
-                // end of the list.
+                // Extract integers from the input stream and store
+                // them in the integer variable num. Using a while loop
+                // to extract integers from the input stream and add them
+                // to the end of the list.
                 int num;
                 while (inputStream >> num) {
                     listAsInteger.push_back(num);
@@ -143,7 +147,8 @@ ElementsAtOddPositions(const std::list<int>& listOfElements) {
 
                     // Displaying the digits of the user's number.
                     std::cout << "The digits of your numbers are: ";
-                    // Using For Each loop to iterate through the elements in the number.
+                    // Using For Each loop to iterate through the
+                    // elements in the number.
                     for (int digit : separated_digits) {
                         std::cout << digit << " \n";
                     }
@@ -151,8 +156,8 @@ ElementsAtOddPositions(const std::list<int>& listOfElements) {
                     // Displaying the elements at odd positions from the list.
                     std::cout <<
                     "The elements in your list at odd positions are: ";
-                    // Using For Each loop to iterate through the elements and displays the
-                    // elements at odd positions from the list.
+                    // Using For Each loop to iterate through the elements
+                    // and displays the elements at odd positions from the list.
                     for (int element : odd_elements) {
                         std::cout << element << " \n";
                     }
