@@ -11,24 +11,26 @@
 // The following libraries are included for various functionalities:
 // Provides algorithmic operations on sequences.
 #include <algorithm>
-// Offers utilities for formatting output.
+// Allows for use of std and its functions.
 #include <iomanip>
-// Handles input/output stream operations.
+// Allows for inputs and outputs.
 #include <iostream>
-// Provides iterator manipulation utilities.
+// Allows for iterator manipulation.
 #include <iterator>
-// Implements a doubly-linked list data structure.
+// Allows for usage of doubly-linked list data structures.
 #include <list>
-// Offers utilities for string manipulation.
+// Allows for string manipulation.
+#include <sstream>
+// Allows for the usage of strings.
 #include <string>
+// Allows for a dynamic array-like container.
+#include <vector>
 
-// Creating a function that will display the elements at
-// odd positions in a list.
-std::list<int>
-ElementsAtOddPositions(const std::list<int>& listOfElements) {
-    // Declaring an empty list for odd elements.
-    std::list<int> oddElementList;
-
+// Function that displays all the elements adds odd positions of a list.
+std::vector<int> ElementsAtOddPositions(
+    const std::vector<int>& listOfElements) {
+    // Declaring list.
+    std::vector<int> oddElementList;
     // Using a For loop to get the odd elements from the list.
     for (int index = 0; index < listOfElements.size(); ++index) {
         // Checking if the element's index is odd.
@@ -52,129 +54,175 @@ ElementsAtOddPositions(const std::list<int>& listOfElements) {
     // Returning the odd element in the list to the function.
     return oddElementList;
 }
+// Function that tells the user the individual digits in their number.
+std::vector<int> ListOfNumbers(int wholeNumber) {
+    // Declaring list.
+    std::vector<int> listOfDigits;
+    // Converting the number inputted by the user into a string
+    // using the std::to_string function, to iterate through its characters.
+    // This function takes an integer as input and returns a string
+    // representation of the integer.
+    std::string wholeNumberString = std::to_string(wholeNumber);
+    for (char digit : wholeNumberString) {
+        // Appending the individual digits to the list.
+        // Using the number 1 specifies the length of the
+        // new string, and the digit variable specifies the character
+        // to be copied into the new string.
+        // Then the string is passed as an argument to the std::stoi()
+        // function, which converts the string to an integer.
+        // Then the integer is added to the end of listOfDigits using
+        // the push_back() function.
+        listOfDigits.push_back(std::stoi(std::string(1, digit)));
+    }
+    // Returning the list to the function.
+    return listOfDigits;
+}
 
-    // Creating a function that will display the individual digits inside
-    // a number using lists.
-    std::list<int> ListOfNumbers(int wholeNumber) {
-        // Declaring a list to hold the individual elements.
-        std::list<int> listOfDigits;
-        // Converting the number inputted by the user into a string
-        // using the std::to_string function, to iterate through its characters.
-        // This function takes an integer as input and returns a string
-        // representation of the integer.
-        std::string wholeNumberString = std::to_string(wholeNumber);
-        // Using a For Each loop to get the individual elements.
-        for (char digit : wholeNumberString) {
-            // Appending the individual digits to the list.
-            // Using the number 1 specifies the length of the
-            // new string, and the digit variable specifies the character
-            // to be copied into the new string.
-            // Then the string is passed as an argument to the std::stoi()
-            // function, which converts the string to an integer.
-            // Then the integer is added to the end of listOfDigits using
-            // the push_back() function.
-            listOfDigits.push_back(std::stoi(std::string(1, digit)));
-        }
-            // Returning the list to the function.
-            return listOfDigits;
-        }
+int main() {
+    // Declaring variables.
+    std::string listAsString;
+    std::vector<int> listAsInteger;
+    int wholeNumberAsInteger;
 
-    // Main function that will allow for user input/output and also
-    // error check.
-    int main() {
-        // Declaring variables.
-        std::string listAsString;
-        std::string wholeNumberAsString;
-        int repeatProgram;
+    // Explaining my program to the user.
+    std::cout <<
+    "Welcome to my program in C++! My program will get a list of numbers from";
+    std::cout <<
+    " the user and will display the elements at odd positions in the list.";
+    std::cout <<
+    " It will also ask for a number and will display the digits in that ";
+    std::cout << "number separated by commas.\n";
 
-        // Using a While true loop, to allow for the user to repeat my
-        // program.
-        while (true) {
-            // Getting user inputs.
-            // Using std::getline() function to read the input and store it in
-            // the string variable listAsString. Using std::cin object to read
-            // the input and ignore any leading whitespace characters
-            // in the input. Using std::ws manipulator to skip any
-            // remaining whitespace characters in the input.
+    // Using a While True loop to allow the user to run my
+    // program again.
+    while (true) {
+        // Using a Do While loop which will continue until
+        // the user enters a valid string of integers.
+        do {
+            // Getting user input.
+            std::string listAsString;
             std::cout <<
-            "Please enter a string of integers separated by spaces: ";
-            std::getline
-            (std::cin >> std::ws, listAsString);
-            std::cout << "Please enter a positive whole number: ";
-            std::getline(std::cin >> std::ws, wholeNumberAsString);
+            "\nPlease enter a string of integers separated by spaces: ";
+            std::getline(std::cin, listAsString);
+            // Creating a string stream from the user's input.
+            std::istringstream iss(listAsString);
+            // Declaring a string to hold each integer in the user's input.
+            std::string integer;
 
             // Using try catch to catch any errors.
             try {
-                // Using a stringstream to parse the string into integers.
-                // Using std::istringstream to read input from a string as
-                // if it were a stream. Creating a new object called
-                // inputStream with the contents of the string variable
-                // listAsString. This object is then used to extract
-                // integers from the input.
-                std::istringstream inputStream(listAsString);
-                std::list<int> listAsInteger;
+                // Using a while loop to continue until all integers
+                // have been processed.
+                // This returns a reference to the string stream iss,
+                // which is converted to a boolean value so that it can
+                // be evaluated by the while loop.
+                // If the extraction was successful, meaning the string stream
+                // is valid then the boolean value is true.
+                // But if the extraction failed, meaning it is invalid the
+                // boolean value is false.
+                while (iss >> integer) {
+                    // Declaring a variable that is an  unsigned integer type
+                    // that is used for sizes.
+                    // The pos variable is used to hold the position of the
+                    // first character in the string that could not be
+                    // converted to an integer.
+                        size_t pos;
+                    // Converting from string to an integer.
+                    int num = std::stoi(integer, &pos);
 
-                int wholeNumberAsInteger = std::stoi(wholeNumberAsString);
+                    // Checking if the entire list has a valid integers
+                    // or if there is a negative integer.
+                    // Checking if the entire list was converted to an integer.
+                    // If not, this means the string contains a non-integer.
+                    // character. It also checks if there is a negative integer.
+                    if (pos != integer.size() || num < 0) {
+                        // If there is an invalid input, then throw an exception
+                        // to the catch statement which will display the error
+                        // message.
+                        throw std::invalid_argument("");
+                    }
 
-                // Parsing the string into integers.
-                // Extract integers from the input stream and store
-                // them in the integer variable num. Using a while loop
-                // to extract integers from the input stream and add them
-                // to the end of the list.
-                int num;
-                while (inputStream >> num) {
+                    // Adding the valid integers to the list.
                     listAsInteger.push_back(num);
                 }
-
-                // Checking if either the whole number or
-                // any element in the list is negative.
-                // Using the std::any_of() function to return true
-                // if any element in the range listAsInteger.begin(),
-                // listAsInteger.end()) is less than 0.
-                if (wholeNumberAsInteger < 0 ||
-                std::any_of(listAsInteger.begin(),
-                listAsInteger.end(), [](int num) { return num < 0; })) {
-                    // If there is a negative then display an error message.
-                    std::cout << "Please enter a positive number." << std::endl;
-                    // Continue through the loop after displaying error message.
-                    continue;
-                // Else they're positive so call functions.
-                } else {
-                    std::list<int> odd_elements =
-                    ElementsAtOddPositions(listAsInteger);
-                    std::list<int> separated_digits =
-                    ListOfNumbers(wholeNumberAsInteger);
-
-                    // Displaying the digits of the user's number.
-                    std::cout << "The digits of your numbers are: ";
-                    // Using For Each loop to iterate through the
-                    // elements in the number.
-                    for (int digit : separated_digits) {
-                        std::cout << digit << " \n";
-                    }
-
-                    // Displaying the elements at odd positions from the list.
-                    std::cout <<
-                    "The elements in your list at odd positions are: ";
-                    // Using For Each loop to iterate through the elements
-                    // and displays the elements at odd positions from the list.
-                    for (int element : odd_elements) {
-                        std::cout << element << " \n";
-                    }
-                }
-            // Catching any errors.
-            } catch (std::invalid_argument) {
-                std::cout << "Invalid input. Please try again\n";
-            }
-
-            // Asking the user if they want to repeat my program.
-            std::cout <<
-            "Do you want to repeat my program? (1 - Yes or 2 - No): ";
-            std::cin >> repeatProgram;
-
-            // If they don't enter 1 then break out of loop.
-            if (repeatProgram != 1) {
+                // If there is no exception, then break out of
+                // the loop.
                 break;
+            // Catching any errors.
+            } catch (const std::invalid_argument& e) {
+                std::cout << "Invalid input. Please try again.\n";
             }
+        } while (true);
+
+        // Using another do while loop which will continue until
+        // the user enters a valid positive whole number.
+        do {
+            // Getting user input for a positive whole number.
+            std::string wholeNumberAsString;
+            std::cout << "\nPlease enter a positive whole number: ";
+            std::getline(std::cin, wholeNumberAsString);
+
+            // Using a try catch to catch any errors.
+            try {
+                // Convert the string to an integer
+                wholeNumberAsInteger = std::stoi(wholeNumberAsString);
+
+                // Check if the number is negative or a decimal.
+                // Using npos expression to represent the maximum
+                // size of a string.
+                // This value is returned by the std::string::find
+                // function to check if the user’s input contains
+                // a decimal point.
+                if (wholeNumberAsInteger < 0 ||
+                wholeNumberAsString.find('.') != std::string::npos) {
+                    // If it does contain either negatives or decimals,
+                    // throw an exception to the catch statement which will
+                    // display the error message.
+                    throw std::invalid_argument("");
+                }
+                // If there is no exception, then break out of the loop.
+                break;
+            // Catch any errors.
+            } catch (const std::invalid_argument& e) {
+                std::cout << "Invalid input. Please try again.\n";
+            }
+        } while (true);
+
+        // Calling functions.
+        std::vector<int> oddElements = ElementsAtOddPositions(listAsInteger);
+        std::vector<int> separatedDigits = ListOfNumbers(wholeNumberAsInteger);
+
+        // Using a For Each loop to display the elements at odd positions.
+        std::cout << "The elements in your list at odd positions are: ";
+        for (int element : oddElements) {
+            std::cout << element << ", ";
+        }
+        std::cout << "\n";
+
+        // Using a For Each loop to display the digits of the user's number.
+        std::cout << "The digits of your numbers are: ";
+        for (int digit : separatedDigits) {
+            std::cout << digit << ", ";
+        }
+        std::cout << "\n";
+
+        // Asking the user if they want to run my program again.
+        int repeatProgram;
+        std::cout <<
+        "\nDo you want to repeat my program? (1 - Yes or 2 - No): ";
+        std::cin >> repeatProgram;
+
+        // Ignoring the input buffer (keystrokes -like hitting the enter key)
+        // that aren't specified to the maximum number of characters.
+        // This is necessary since after repeating the program it leaves a
+        // newline character in the input buffer, which would be read by
+        // the next input statement if it was not ignored.
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        // Using an if statement to check if they didn't input 1,
+        // then break out of the loop.
+        if (repeatProgram != 1) {
+            break;
         }
     }
+}
